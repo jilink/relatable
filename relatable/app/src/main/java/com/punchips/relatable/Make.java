@@ -8,6 +8,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 public class Make extends AppCompatActivity {
 
     @Override
@@ -26,6 +29,17 @@ public class Make extends AppCompatActivity {
 
                 Toast toast = Toast.makeText(getApplicationContext(),Text,Toast.LENGTH_SHORT);
                 toast.show();
+// WRITING
+                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                DatabaseReference myRef = database.getReference("posts");
+
+                String id= Long.toString(System.currentTimeMillis()); // MAKING ID
+
+                DatabaseReference Id = myRef.child(id);
+                Id.child("text").setValue(Text);
+                Id.child("Rate").setValue(0);
+
+
 
 
             }
