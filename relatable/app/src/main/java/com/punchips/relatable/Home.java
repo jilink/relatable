@@ -31,7 +31,7 @@ public class Home extends AppCompatActivity {
 
         // BOUTON play
         Button play = (Button) findViewById(R.id.play);
-        make.setOnClickListener(new View.OnClickListener() {
+        play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
