@@ -37,7 +37,8 @@ public class Make extends AppCompatActivity {
 
                 DatabaseReference Id = myRef.child(id);
                 Id.child("text").setValue(Text);
-                Id.child("Rate").setValue(0);
+                Id.child("yes").setValue(0);
+                Id.child("no").setValue(0);
 
 
 
