@@ -3,7 +3,11 @@ package com.punchips.relatable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -18,6 +22,7 @@ public class Play extends AppCompatActivity {
 
     private TextView text;
     private String key;
+    private Post post;
 
     private int browsed; // combien de post ont été parcourus ? (utilisé pour l'algorithme qui propose les posts)
 
@@ -30,6 +35,8 @@ public class Play extends AppCompatActivity {
             @Override
             public void DataIsLoaded(List<Post> posts, List<String> keys) {
                 text.setText(posts.get(0).getText());
+                key=keys.get(0);
+                post=posts.get(0);
             }
 
             @Override
@@ -48,6 +55,21 @@ public class Play extends AppCompatActivity {
             }
         });
 
+        Button yes =(Button) findViewById(R.id.yes); // this is relatable!
+        yes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                DatabaseReference myRef = database.getReference("posts");
+
+                DatabaseReference Id = myRef.child(key);
+                Id.child("yes").setValue(post.getYes()+1);
+
+
+            }
+        });
+
 
 
     }
@@ -60,7 +82,7 @@ public class Play extends AppCompatActivity {
 
 
         return posts.get(RandPost).getText();
-        
+
     }
 
 

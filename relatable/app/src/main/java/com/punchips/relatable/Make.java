@@ -27,7 +27,7 @@ public class Make extends AppCompatActivity {
 
                 String Text =text.getText().toString();
 
-                Toast toast = Toast.makeText(getApplicationContext(),Text,Toast.LENGTH_SHORT);
+                Toast toast = Toast.makeText(getApplicationContext(),"So relatable!",Toast.LENGTH_SHORT);
                 toast.show();
 // WRITING
                 FirebaseDatabase database = FirebaseDatabase.getInstance();

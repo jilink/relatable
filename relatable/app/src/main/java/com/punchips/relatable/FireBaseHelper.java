@@ -31,7 +31,7 @@ public class FireBaseHelper {
     }
 
     public void readPosts(final DataStatus datastatus){
-        mReferencePost.addValueEventListener(new ValueEventListener() {
+        mReferencePost.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 posts.clear();
@@ -44,6 +44,10 @@ public class FireBaseHelper {
                 datastatus.DataIsLoaded(posts,keys);
 
             }
+
+            DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("languages");
+
+
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
