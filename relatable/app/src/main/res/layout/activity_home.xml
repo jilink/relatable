@@ -13,8 +13,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="56dp"
         android:text="RELATABLE"
-        android:textColor="#2196F3"
-        android:textSize="30sp"
+        android:textColor="#2469ff"
+        android:textSize="36sp"
+        app:fontFamily="@font/anton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

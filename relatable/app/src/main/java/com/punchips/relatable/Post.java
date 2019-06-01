@@ -49,4 +49,18 @@ public class Post {
     public void setNo(int no) {
         this.no = no;
     }
+
+    public int getRate(){ // le pourcentage de relatabilité
+        int rate=0;
+
+        if(yes+no > 0){
+            rate = (yes *100) / (yes+no);
+        }
+        else{
+            rate=50;
+        }
+
+
+        return rate;
+    }
 }

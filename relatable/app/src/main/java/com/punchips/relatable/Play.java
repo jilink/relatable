@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,7 +25,9 @@ public class Play extends AppCompatActivity {
     private String key;
     private Post post;
 
-    private int browsed; // combien de post ont été parcourus ? (utilisé pour l'algorithme qui propose les posts)
+    private List<Post> Posts;
+    private List<String> Keys;
+    private int browsed=0; // combien de post ont été parcourus ? (utilisé pour l'algorithme qui propose les posts)
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,9 +37,9 @@ public class Play extends AppCompatActivity {
         new FireBaseHelper().readPosts(new FireBaseHelper.DataStatus() {
             @Override
             public void DataIsLoaded(List<Post> posts, List<String> keys) {
-                text.setText(posts.get(0).getText());
-                key=keys.get(0);
-                post=posts.get(0);
+                Posts=posts;
+                Keys=keys;
+                browsingAlgorithme();
             }
 
             @Override
@@ -66,6 +69,80 @@ public class Play extends AppCompatActivity {
                 DatabaseReference Id = myRef.child(key);
                 Id.child("yes").setValue(post.getYes()+1);
 
+                Button next =(Button) findViewById(R.id.next);
+                Button no =(Button) findViewById(R.id.no);
+                Button yes =(Button) findViewById(R.id.yes);
+                ProgressBar ratebar =(ProgressBar) findViewById(R.id.ratebar);
+                next.setVisibility(View.VISIBLE);
+                ratebar.setVisibility(View.VISIBLE);
+                yes.setVisibility(View.INVISIBLE);
+                no.setVisibility(View.INVISIBLE);
+
+                // show rate
+
+                TextView ratetext = (TextView) findViewById(R.id.ratetext);
+                ratebar.setProgress(post.getRate());
+                String Srate = ""+post.getRate() +"% of people think this is relatable!";
+                ratetext.setText(Srate);
+
+
+
+            }
+        });
+
+        Button no =(Button) findViewById(R.id.no); // this is NOT relatable!
+        no.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                DatabaseReference myRef = database.getReference("posts");
+
+                DatabaseReference Id = myRef.child(key);
+                Id.child("no").setValue(post.getNo()+1);
+
+                Button next =(Button) findViewById(R.id.next);
+                Button no =(Button) findViewById(R.id.no);
+                Button yes =(Button) findViewById(R.id.yes);
+                ProgressBar ratebar =(ProgressBar) findViewById(R.id.ratebar);
+                next.setVisibility(View.VISIBLE);
+                ratebar.setVisibility(View.VISIBLE);
+                yes.setVisibility(View.INVISIBLE);
+                no.setVisibility(View.INVISIBLE);
+
+                // show rate
+
+                TextView ratetext = (TextView) findViewById(R.id.ratetext);
+                ratebar.setProgress(post.getRate());
+                String Srate = ""+post.getRate() +"% of people think this is relatable!";
+                ratetext.setText(Srate);
+
+
+
+
+            }
+        });
+
+
+        Button next =(Button) findViewById(R.id.next); // this is NOT relatable!
+        next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                // nouveau post
+                browsingAlgorithme();
+                Button next =(Button) findViewById(R.id.next);
+                Button no =(Button) findViewById(R.id.no);
+                Button yes =(Button) findViewById(R.id.yes);
+                ProgressBar ratebar =(ProgressBar) findViewById(R.id.ratebar);
+                ratebar.setVisibility(View.INVISIBLE);
+                next.setVisibility(View.INVISIBLE);
+                yes.setVisibility(View.VISIBLE);
+                no.setVisibility(View.VISIBLE);
+                TextView ratetext = (TextView) findViewById(R.id.ratetext);
+                ratetext.setText("");
+
 
             }
         });
@@ -74,14 +151,46 @@ public class Play extends AppCompatActivity {
 
     }
 
-    public String browsingAlgorithme(List<Post> posts){
+    public void browsingAlgorithme(){
+
 
         Random r = new Random();
-        int RandPost = r.nextInt(posts.size()); // on choisit un post aléatoire
+        int RandPost = r.nextInt(Posts.size()); // on choisit un post aléatoire
+        post=Posts.get(RandPost);
 
 
+        if (browsed%4==1){ // tous les 4 post on propose un post qui a peu de vue
 
-        return posts.get(RandPost).getText();
+            for(int i=0;i<30;i++) { // on tente 30 fois pour ne pas bloquer le programme indéfiniement sinon tant pis
+                if (post.getYes() + post.getNo() < 10){ // less than 10 people have seen that post, let's show it!
+                    i=31;
+                }
+                else{ // it doesn't, let's find another
+                    RandPost = r.nextInt(Posts.size()); // on choisit un post aléatoire
+                    post=Posts.get(RandPost);
+                }
+            }
+
+        }
+        else {
+
+            for(int i=0;i<30;i++) { // on tente 30 fois pour ne pas bloquer le programme indéfiniement sinon tant pis
+                if (post.getRate() > 60 && post.getYes() + post.getNo() > 10){ // more than 10 people found this relatable !!
+                    i=31;
+                }
+                else{ // it doesn't, let's find another
+                    RandPost = r.nextInt(Posts.size()); // on choisit un post aléatoire
+                    post=Posts.get(RandPost);
+                }
+            }
+
+        }
+
+        text.setText(Posts.get(RandPost).getText());
+        key=Keys.get(RandPost);
+
+
+        browsed++; // we browsed one more post
 
     }
 
