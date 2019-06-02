@@ -82,7 +82,7 @@ public class Play extends AppCompatActivity {
 
                 TextView ratetext = (TextView) findViewById(R.id.ratetext);
                 ratebar.setProgress(post.getRate());
-                String Srate = ""+post.getRate() +"% of people think this is relatable!";
+                String Srate = ""+post.getRate() +"% of people ("+post.getYes()+") think this is relatable!";
                 ratetext.setText(Srate);
 
 
@@ -114,7 +114,7 @@ public class Play extends AppCompatActivity {
 
                 TextView ratetext = (TextView) findViewById(R.id.ratetext);
                 ratebar.setProgress(post.getRate());
-                String Srate = ""+post.getRate() +"% of people think this is relatable!";
+                String Srate = ""+post.getRate() +"% of people ("+post.getYes()+") think this is relatable!";
                 ratetext.setText(Srate);
 
 

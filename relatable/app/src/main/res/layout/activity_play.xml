@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#a8efff"
     tools:context=".Play">
 
     <TextView
@@ -25,10 +26,12 @@
         android:id="@+id/yes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginBottom="29dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginBottom="28dp"
+        android:background="#5BC887"
         android:text="Relatable"
+        android:textColor="#ffffff"
         app:layout_constraintBottom_toTopOf="@+id/no"
         app:layout_constraintStart_toStartOf="@+id/no" />
 
@@ -37,10 +40,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="120dp"
+        android:background="#BC4E6B"
         android:text="not relatable"
+        android:textColor="#ffffff"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.489"
+        app:layout_constraintHorizontal_bias="0.516"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
@@ -50,6 +55,8 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="2dp"
         android:layout_marginRight="2dp"
+        android:background="#2469ff"
+        android:textColor="#ffffff"
         android:text="Next"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="@+id/yes"

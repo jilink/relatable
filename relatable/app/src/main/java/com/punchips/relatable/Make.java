@@ -27,7 +27,7 @@ public class Make extends AppCompatActivity {
 
                 String Text =text.getText().toString();
 
-                Toast toast = Toast.makeText(getApplicationContext(),"So relatable!",Toast.LENGTH_SHORT);
+                Toast toast = Toast.makeText(getApplicationContext(),"Successfully submited!",Toast.LENGTH_SHORT);
                 toast.show();
 // WRITING
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -39,6 +39,8 @@ public class Make extends AppCompatActivity {
                 Id.child("text").setValue(Text);
                 Id.child("yes").setValue(0);
                 Id.child("no").setValue(0);
+
+                text.setText("");
 
 
 
