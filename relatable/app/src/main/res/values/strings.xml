@@ -1,3 +1,6 @@
 <resources>
-    <string name="app_name">relatable</string>
+    <string name="app_name">Relatable</string>
+    <string name="agree_terms_privacy">By continuing, you agree to our <a href="https://jilinkk.wixsite.com/relatablecgu">Terms of Use and Privacy Policy</a></string>
+
+
 </resources>

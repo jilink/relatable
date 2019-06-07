@@ -1,6 +1,7 @@
 package com.punchips.relatable;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,9 +18,19 @@ public class SplashScreen extends AppCompatActivity {
             @Override
             public void run() {
 
-                Intent myIntent = new Intent(SplashScreen.this, Home.class);
-                startActivity(myIntent);
-                finish();
+                SharedPreferences settings = getSharedPreferences("pref", 0);
+                boolean agree = settings.getBoolean("cgu", false);
+                if(agree){ // if t&c are ok
+                    Intent myIntent = new Intent(SplashScreen.this, Home.class);
+                    startActivity(myIntent);
+                    finish();
+                }
+                else{ // if not go there
+                    Intent myIntent = new Intent(SplashScreen.this, CGU_Agreement.class);
+                    startActivity(myIntent);
+                    finish();
+                }
+
 
             }
         },TIME);
